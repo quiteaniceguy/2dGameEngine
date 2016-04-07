@@ -1,9 +1,11 @@
 package Platformer;
 
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -37,6 +39,8 @@ public abstract class GameComponent extends JPanel{
 	public int yAxisLines=27;
 	
 	Quadtree quad=new Quadtree(0,new Rectangle(0,0,1920,1080));
+	
+	Graphics2D g2d;
 	
 	
 	public GameComponent(){
@@ -84,7 +88,9 @@ public abstract class GameComponent extends JPanel{
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
-		Graphics2D g2d=(Graphics2D)g.create();
+		////what the fuck is toolkit and why did it fix lag
+		Toolkit.getDefaultToolkit().sync();
+		Graphics2D g2d=(Graphics2D)g;
 		//g2d.setColor(Color.RED);
 		//g2d.fill(box);
 		
@@ -101,7 +107,7 @@ public abstract class GameComponent extends JPanel{
 		}
 		///do collisions
 			
-		g2d.dispose();
+		
 		
 	}
 	
@@ -157,10 +163,12 @@ public abstract class GameComponent extends JPanel{
 	
 	public abstract void gameLoop();
 	public void drawLines(Graphics2D g2d){
-		for(int i=0;i<1920;i+=1920/xAxisLines){
+		int xLineDistance=1920/xAxisLines;
+		for(int i=0;i<1920;i+=xLineDistance){
 			g2d.drawLine(i, 0, i, 1080);
 		}
-		for(int i=0;i<1080;i+=1080/yAxisLines){
+		int yLineDistance=1080/yAxisLines;
+		for(int i=0;i<1080;i+=yLineDistance){
 			g2d.drawLine(0, i, 1920, i);
 		}
 	}
@@ -193,7 +201,7 @@ public abstract class GameComponent extends JPanel{
 	}
 	public void playSound(String fileName) throws IOException, 
 	  UnsupportedAudioFileException, LineUnavailableException, InterruptedException {
-		File clipFile=new File("assets\\"+fileName+".wav");
+		File clipFile=new File("assets//"+fileName+".wav");
 		class AudioListener implements LineListener {
 		    private boolean done = false;
 		    @Override public synchronized void update(LineEvent event) {
