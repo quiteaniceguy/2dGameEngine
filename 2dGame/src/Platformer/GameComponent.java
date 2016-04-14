@@ -86,8 +86,9 @@ public abstract class GameComponent extends JPanel{
 		timer.start();
 	}
 	@Override
-	public void paint(Graphics g){
-		super.paint(g);
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		g.translate(Entities.get(0).getX()*-1, Entities.get(0).getY()*-1);
 		////what the fuck is toolkit and why did it fix lag
 		Toolkit.getDefaultToolkit().sync();
 		Graphics2D g2d=(Graphics2D)g;
@@ -97,7 +98,8 @@ public abstract class GameComponent extends JPanel{
 		
 		
 		
-		for(Entity entity: Entities){
+		for(int i=1;i<Entities.size();i++){
+			Entity entity=Entities.get(i);
 			g2d.drawImage(entity.IMAGE, entity.getX(),entity.getY(), entity.IMAGE.getWidth(), entity.IMAGE.getHeight(), null);
 			g2d.drawString(String.valueOf(entity.NAME), entity.getX(), entity.getY());
 		}
@@ -106,8 +108,10 @@ public abstract class GameComponent extends JPanel{
 			drawLines(g2d);
 		}
 		///do collisions
-			
-		
+		g.translate(Entities.get(0).getX(), Entities.get(0).getY());
+		Entity entity=Entities.get(0);
+		g2d.drawImage(entity.IMAGE, 1920/2,1080/2, entity.IMAGE.getWidth(), entity.IMAGE.getHeight(), null);
+		g2d.drawString(String.valueOf(entity.NAME), entity.getX(), entity.getY());
 		
 	}
 	
@@ -187,7 +191,7 @@ public abstract class GameComponent extends JPanel{
 			
 			for(Entity e:returnEntities){
 				//System.out.println(Entities.get(i).NAME+" could collide with "+e.NAME);
-				if(Math.abs(Entities.get(i).getX()-e.getX())<= Entities.get(i).IMAGE.getWidth()/2+e.IMAGE.getWidth()/2 && Math.abs(Entities.get(i).getY()-e.getY())<= Entities.get(i).IMAGE.getHeight()/2+e.IMAGE.getHeight()/2 && Entities.get(i)!=e){
+				if(Entities.get(i).isMath.abs(Entities.get(i).getX()-e.getX())<= Entities.get(i).IMAGE.getWidth()/2+e.IMAGE.getWidth()/2 && Math.abs(Entities.get(i).getY()-e.getY())<= Entities.get(i).IMAGE.getHeight()/2+e.IMAGE.getHeight()/2 && Entities.get(i)!=e){
 					System.out.println(Entities.get(i).NAME+" is colliding with "+e.NAME);
 				}
 			}

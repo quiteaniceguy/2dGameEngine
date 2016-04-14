@@ -6,15 +6,15 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
-public abstract class Entity {
+public class Entity {
 	public final String NAME;
 	public BufferedImage IMAGE;
-	public boolean gravity;
 	private int x=0;
 	private int y=0;
-	public Entity(String name, String image,boolean gravity,int x, int y){
+	private int lasty=0;
+	private int lastx=0;
+	public Entity(String name, String image,int x, int y){
 		NAME=name;
-		this.gravity=gravity;
 		this.x=x;
 		this.y=y;
 		try{
@@ -28,15 +28,19 @@ public abstract class Entity {
 	}
 	
 	public void changeX(int x){
+		lastx=this.x;
 		this.x+=x;
 	}
 	public void changeY(int y){
+		lasty=this.y;
 		this.y+=y;
 	}
 	public void setX(int x){
+		lastx=this.x;
 		this.x=x;
 	}
 	public void setY(int y){
+		lasty=this.y;
 		this.y=y;
 	}
 	public int getY(){
@@ -44,6 +48,12 @@ public abstract class Entity {
 	}
 	public int getX(){
 		return x;
+	}
+	public int getLastY(){
+		return lasty;
+	}
+	public int getLastX(){
+		return lastx;
 	}
 	
 	
