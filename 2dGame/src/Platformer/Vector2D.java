@@ -16,6 +16,9 @@ public class Vector2D {
 	public double dotProduct(Point point){
 		return x*point.getX()+y*point.getY();
 	}
+	public double dotProduct(Vector2D vector){
+		return x*vector.x+y*vector.y;
+	}
 	public void normalize(){
 		double d=Math.sqrt(x^2+y^2);
 		x/=d;

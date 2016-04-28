@@ -7,7 +7,7 @@ public class MainGame extends GameComponent{
 		super();
 		Random random=new Random();
 		for(int i=0;i<15;i++){
-			Player_Entity player=new Player_Entity("player"+String.valueOf(i),random.nextInt(1920),random.nextInt(1080));
+			Entity player=new SolidEntity("player"+String.valueOf(i),"assets//TestPerson.png",random.nextInt(1920),random.nextInt(1080));
 			Entities.add(player);
 		}
 		xAxisLines=2;
